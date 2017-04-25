@@ -36,17 +36,25 @@ def run(exp_path, tf_path, out, k='sqrt', max_regulations=100000):
     print "elapsed time for", exp_path, ":", start_time - time.clock(), "\tthreads:", cpu_count(), "\tK:", k
 
 
+TF_path = "/media/tmo/data/work/datasets/TF/mm9_TFs.txt"
+
+
 def run_zeisel():
-    in_path = ""
-    TF_path = ""
-    out_path = ""
-    run(in_path, TF_path, out_path, k='sqrt')
-    run(in_path, TF_path, out_path, k='all')
+    in_path = "/media/tmo/data/work/datasets/zeisel/expression_sara_filtered.txt"
+    out_dir = "/media/tmo/data/work/datasets/benchmarks/genie3/zeisel/"
+    run(in_path, TF_path, out_dir + "zeisel.filtered.genie3.k.sqrt.txt", k='sqrt')
+    run(in_path, TF_path, out_dir + "zeisel.filtered.genie3.k.all.txt",  k='all')
 
 
 def run_macosko_sampled():
-    in_path = ""
-    TF_path = ""
-    out_path = ""
-    run(in_path, TF_path, out_path, k='sqrt')
-    run(in_path, TF_path, out_path, k='all')
+    in_path = "/media/tmo/data/work/datasets/macosko/in/sampledEsetMR.tsv"
+    out_dir = "/media/tmo/data/work/datasets/benchmarks/genie3/macosko/"
+    run(in_path, TF_path, out_dir + "macosko.sampled.genie3.k.sqrt.txt", k='sqrt')
+    run(in_path, TF_path, out_dir + "macosko.sampled.genie3.k.all.txt", k='all')
+
+
+def run_macosko_full():
+    in_path = "/media/tmo/data/work/datasets/macosko/in/allEsetMR.tsv"
+    out_dir = "/media/tmo/data/work/datasets/benchmarks/genie3/macosko/"
+    run(in_path, TF_path, out_dir + "macosko.full.genie3.k.sqrt.txt", k='sqrt')
+    run(in_path, TF_path, out_dir + "macosko.full.genie3.k.all.txt", k='all')
