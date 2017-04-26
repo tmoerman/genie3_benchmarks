@@ -350,7 +350,7 @@ def wr_GENIE3_single(args):
 
 
 def GENIE3_single(expr_data, output_idx, input_idx, tree_method, K, ntrees, compute_prediction_score, save_models):
-    print "processing gene: " + str(input_idx)
+    print "processing gene: " + str(output_idx)
 
     ngenes = expr_data.shape[1]
 
