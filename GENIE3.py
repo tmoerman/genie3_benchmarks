@@ -282,7 +282,7 @@ def GENIE3(expr_data, gene_names=None, regulators='all', tree_method='RF', K='sq
     else:
         input_idx = [i for i, gene in enumerate(gene_names) if gene in regulators]
 
-    print 'Nr of regulators: ' + str(len(input_idx))
+    print 'Number of regulators: ' + str(len(input_idx))
     print '\n'
 
     # Learn an ensemble of trees for each target gene, and compute scores for candidate regulators

@@ -3,8 +3,16 @@ from numpy import *
 from multiprocessing import cpu_count
 
 
-def run(exp_path, tf_path, out, max_regulations=100000):
-    print "running GENIE3  on", exp_path
+def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
+    """
+    :param exp_path: The path to the expression matrix.
+    :param tf_path: The path to the file with the transcription factor list.
+    :param out: The output path.
+    :param max_regulations: The maximum number of regulatory connections to output.
+    :param nr_threads: The nr of threads to use to run GENIE3, defaults to the nr of available processors.
+    :return: void
+    """
+    print "running GENIE3 on", exp_path
 
     start_time = time.clock()
 
@@ -27,7 +35,7 @@ def run(exp_path, tf_path, out, max_regulations=100000):
     (VIM, prediction_score, treeEstimators) = GENIE3(expr_data=exp_data,
                                                      gene_names=gene_names,
                                                      regulators=tr_factors,
-                                                     nthreads=cpu_count())
+                                                     nthreads=nr_threads)
     get_link_list(VIM,
                   gene_names=gene_names,
                   regulators=tr_factors,
