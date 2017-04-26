@@ -275,13 +275,15 @@ def GENIE3(expr_data, gene_names=None, regulators='all', tree_method='RF', K='sq
     print 'Tree method: ' + str(tree_method)
     print 'K: ' + str(K)
     print 'Number of trees: ' + str(ntrees)
-    print '\n'
 
     # Get the indices of the candidate regulators
     if regulators == 'all':
         input_idx = range(ngenes)
     else:
         input_idx = [i for i, gene in enumerate(gene_names) if gene in regulators]
+
+    print 'Nr of regulators: ' + str(len(input_idx))
+    print '\n'
 
     # Learn an ensemble of trees for each target gene, and compute scores for candidate regulators
     VIM = zeros((ngenes, ngenes))
@@ -348,6 +350,8 @@ def wr_GENIE3_single(args):
 
 
 def GENIE3_single(expr_data, output_idx, input_idx, tree_method, K, ntrees, compute_prediction_score, save_models):
+    print "processing gene: " + str(input_idx)
+
     ngenes = expr_data.shape[1]
 
     # Expression of target gene
