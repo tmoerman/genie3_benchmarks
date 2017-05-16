@@ -14,7 +14,7 @@ def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
     """
     print "running GENIE3 on", exp_path
 
-    start_time = time.clock()
+    start_time = time.time()
 
     # parse the gene names from the file
     exp_file = open(exp_path)
@@ -42,4 +42,4 @@ def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
                   file_name=out,
                   maxcount=max_regulations)
 
-    print "elapsed time for", exp_path, ":", start_time - time.clock(), "\t threads:", cpu_count()
+    print "elapsed time for", exp_path, ":", time.time() - start_time, "\t threads:", cpu_count()
