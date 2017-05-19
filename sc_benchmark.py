@@ -14,7 +14,7 @@ def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
     """
     print "running GENIE3 on", exp_path
 
-    start_time = time.time()
+    T_wall = time.time()
 
     # parse the gene names from the file
     exp_file = open(exp_path)
@@ -24,7 +24,10 @@ def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
     exp_file.close()
 
     # load the matrix of expression data
+    print "transposing the expression matrix"
+    T_start = time.time()
     exp_data = loadtxt(exp_path, skiprows=1, usecols=range(1, nr_cols)).transpose()
+    print "matrix.transpose() took:", time.time() - T_start
 
     # load the TF
     tf_file = open(tf_path)
@@ -32,14 +35,18 @@ def run(exp_path, tf_path, out, max_regulations=100000, nr_threads=cpu_count()):
     tf_file.close()
 
     # compute the result
+    print "calling GENIE3 on the transposed matrix"
     (VIM, prediction_score, treeEstimators) = GENIE3(expr_data=exp_data,
                                                      gene_names=gene_names,
                                                      regulators=tr_factors,
                                                      nthreads=nr_threads)
+
+    T_list = time.time()
     get_link_list(VIM,
                   gene_names=gene_names,
                   regulators=tr_factors,
                   file_name=out,
                   maxcount=max_regulations)
+    print "calculating the link list:", time.time() - T_list
 
-    print "elapsed time for", exp_path, ":", time.time() - start_time, "\t threads:", cpu_count()
+    print "GENIE3 wall time", exp_path, ":", time.time() - T_wall, "\t threads:", cpu_count()
