@@ -392,7 +392,12 @@ def GENIE3_single(expr_data, output_idx, input_idx, tree_method, K, ntrees, comp
     vi[input_idx] = feature_importances
 
     # Normalize importance scores
-    vi = vi / sum(vi)
+    # [TMO] corrected for division by 0
+    s = sum(vi)
+    if s == 0:
+        vi = -1
+    else:
+        vi /= s
 
     # Prediction score on out-of-bag samples
     if compute_prediction_score:
